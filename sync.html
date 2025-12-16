@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Where It Started | Sync & Kiara</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #ff2e63;
+            --primary-light: #ff6b93;
+            --secondary: #252a34;
+            --accent: #08d9d6;
+            --light: #eaeaea;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-dark: rgba(37, 42, 52, 0.8);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--secondary);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(255, 46, 99, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(8, 217, 214, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--secondary) 0%, #1a1d24 100%);
+            min-height: 100vh;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: var(--glass-dark);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 80px;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 5.5rem;
+            margin-bottom: 2rem;
+            line-height: 1;
+            background: linear-gradient(45deg, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            color: rgba(234, 234, 234, 0.8);
+            max-width: 600px;
+            font-style: italic;
+            position: relative;
+            padding-left: 2rem;
+            border-left: 3px solid var(--primary);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(255, 46, 99, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 46, 99, 0.4);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Floating Cards */
+        .floating-cards {
+            position: absolute;
+            top: 50%;
+            right: 5%;
+            transform: translateY(-50%);
+            width: 400px;
+            height: 500px;
+            perspective: 1000px;
+        }
+
+        .card-3d {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: float 20s infinite linear;
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4rem;
+            color: white;
+            backface-visibility: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-1 {
+            background: linear-gradient(135deg, var(--primary), #ff6b93);
+            transform: rotateY(0deg) translateZ(100px);
+        }
+
+        .card-2 {
+            background: linear-gradient(135deg, var(--accent), #2de2e6);
+            transform: rotateY(120deg) translateZ(100px);
+        }
+
+        .card-3 {
+            background: linear-gradient(135deg, #7928ca, #ff0080);
+            transform: rotateY(240deg) translateZ(100px);
+        }
+
+        @keyframes float {
+            0% {
+                transform: rotateY(0deg);
+            }
+
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+
+        /* Story Section */
+        .story-section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 4rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 3rem;
+        }
+
+        .story-card {
+            background: var(--glass-dark);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 5rem;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 46, 99, 0.1), rgba(8, 217, 214, 0.1));
+            z-index: -1;
+        }
+
+        .story-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: rgba(234, 234, 234, 0.9);
+            margin-bottom: 2.5rem;
+        }
+
+        .highlight-quote {
+            position: relative;
+            padding: 3rem;
+            margin: 4rem 0;
+            border-left: 4px solid var(--primary);
+            background: rgba(255, 46, 99, 0.05);
+            border-radius: 0 15px 15px 0;
+            font-style: italic;
+            font-size: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .highlight-quote::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 5rem;
+            color: var(--primary);
+            opacity: 0.3;
+            font-family: serif;
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            gap: 3rem;
+            margin-top: 5rem;
+            justify-content: center;
+        }
+
+        .timeline-item {
+            flex: 1;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 46, 99, 0.1);
+            border-color: var(--primary);
+        }
+
+        .timeline-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .timeline-desc {
+            color: rgba(234, 234, 234, 0.7);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-title {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-text {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            color: rgba(234, 234, 234, 0.8);
+        }
+
+        .footer-copyright {
+            color: rgba(234, 234, 234, 0.5);
+            font-size: 0.9rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        .delay-4 {
+            animation-delay: 0.8s;
+        }
+
+        /* Particle Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 4rem;
+            }
+
+            .floating-cards {
+                display: none;
+            }
+
+            .story-card {
+                padding: 3rem;
+            }
+
+            .timeline {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2.8rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <i class="fas fa-heart"></i>
+            Sync & Kiara
+        </a>
+        <ul class="nav-links">
+            <li><a href="#story">The Story</a></li>
+            <li><a href="#beginning">Beginning</a></li>
+            <li><a href="#moment">The Moment</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title animate">Where It Started</h1>
+                <p class="hero-subtitle animate delay-1">
+                    "Some chances come quietly. You only notice them if you're paying attention."
+                </p>
+                <a href="#story" class="cta-button animate delay-2">
+                    Begin Reading
+                    <i class="fas fa-arrow-down"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- 3D Floating Cards -->
+        <div class="floating-cards">
+            <div class="card-3d">
+                <div class="card-face card-1">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="card-face card-2">
+                    <i class="fas fa-sparkles"></i>
+                </div>
+                <div class="card-face card-3">
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story-section" id="story">
+        <div class="container">
+            <div class="section-header animate">
+                <div class="section-subtitle">Chapter One</div>
+                <h2 class="section-title">The Cafeteria Table</h2>
+            </div>
+
+            <div class="story-card animate delay-1">
+                <p class="story-text">
+                    It was one of those normal school days—nothing special about the timetable, nothing planned.
+                    I was sitting in the cafeteria with his friends and mine too, passing time the usual way: jokes,
+                    laughter,
+                    and a deck of cards spread across the table.
+                </p>
+
+                <p class="story-text">
+                    That day, one of his friends brought someone along. She wasn't new to them—but she was new to me.
+                    Her name was Kiara.
+                </p>
+
+                <div class="highlight-quote animate delay-2">
+                    "She had been my long-time crush, someone i admired quietly from a distance.
+                    I had never found the courage to approach her before."
+                </div>
+
+                <p class="story-text">
+                    That day felt different. For the first time, she was right there—laughing, talking, close enough
+                    to feel real. I knew i might not get another moment like this.
+                    So instead of staying silent, I took the chance.
+                </p>
+            </div>
+
+            <!-- Timeline -->
+            <div class="timeline animate delay-3">
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                    <h3 class="timeline-title">Ordinary Day</h3>
+                    <p class="timeline-desc">
+                        A regular school day with no special plans
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="timeline-title">Shared Space</h3>
+                    <p class="timeline-desc">
+                        Friends merging circles at one table
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-cards"></i>
+                    </div>
+                    <h3 class="timeline-title">The Game</h3>
+                    <p class="timeline-desc">
+                        Cards became the bridge between strangers
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <h3 class="footer-title animate">Still Ongoing</h3>
+            <p class="footer-text animate delay-1">
+                Some stories don't begin with grand gestures. They start with a table,
+                a deck of cards, and the courage to finally speak.
+            </p>
+            <p class="footer-copyright animate delay-2">
+                &copy; 2025 Sync & Kiara · A Story in Progress
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const animateElements = document.querySelectorAll('.animate');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = entry.target.classList.contains('delay-1') ? 200 :
+                            entry.target.classList.contains('delay-2') ? 400 :
+                                entry.target.classList.contains('delay-3') ? 600 :
+                                    entry.target.classList.contains('delay-4') ? 800 : 0;
+
+                        setTimeout(() => {
+                            entry.target.style.opacity = 1;
+                            entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                        }, delay);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            animateElements.forEach(el => observer.observe(el));
+
+            // Smooth scrolling for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Particle background
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = Math.random() * 4 + 1 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.background = Math.random() > 0.5 ? 'var(--primary)' : 'var(--accent)';
+                particle.style.borderRadius = '50%';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+
+                // Animation
+                particle.animate([
+                    { transform: 'translateY(0px)' },
+                    { transform: `translateY(${Math.random() * 100 - 50}px)` }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    iterations: Infinity,
+                    direction: 'alternate',
+                    easing: 'ease-in-out'
+                });
+
+                particlesContainer.appendChild(particle);
+            }
+
+            // Interactive timeline hover effect
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    timelineItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.style.opacity = '0.7';
+                            otherItem.style.transform = 'scale(0.95)';
+                        }
+                    });
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    timelineItems.forEach(otherItem => {
+                        otherItem.style.opacity = '1';
+                        otherItem.style.transform = 'scale(1)';
+                    });
+                });
+            });
+
+            // Parallax effect on scroll
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const floatingCards = document.querySelector('.floating-cards');
+
+                if (floatingCards) {
+                    floatingCards.style.transform = `translateY(${-50 + scrolled * 0.05}%) rotate(${scrolled * 0.1}deg)`;
+                }
+
+                // Update navbar background on scroll
+                const navbar = document.querySelector('.navbar');
+                if (scrolled > 100) {
+                    navbar.style.background = 'var(--glass-dark)';
+                    navbar.style.backdropFilter = 'blur(15px)';
+                } else {
+                    navbar.style.background = 'transparent';
+                    navbar.style.backdropFilter = 'blur(0px)';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
